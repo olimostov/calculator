@@ -4,37 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator</title>
-  <link rel="stylesheet" href="/style.css">
-  <script src="/script.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <!-- <h1>Calculator</h1> -->
-  <div class="container">
-  <div class="calculator-grid">
-    <div class="output">
-      <div data-previous-operand class="previous-operand"></div>
-      <div data-current-operand class="current-operand">0</div>
+<div class="flex-container">
+  <div class="container"></div>
+    <div class="calculator-grid">
+      <div class="output">
+        <div data-prev-operand class="prev-operand"></div>
+        <div data-curr-operand class="curr-operand"></div>
+      </div>
+      <button data-allClear class="btn-green">AC</button>
+      <button data-delete class="btn-green">DEL</button>
+      <button data-minPlus class="btn-green">-/+</button>
+      <button data-operator>÷</button>
+      <button data-num class="btn-gray">1</button>
+      <button data-num class="btn-gray">2</button>
+      <button data-num class="btn-gray">3</button>
+      <button data-operator class="btn-green">*</button>
+      <button data-num class="btn-gray">4</button>
+      <button data-num class="btn-gray">5</button>
+      <button data-num class="btn-gray">6</button>
+      <button data-operator class="btn-green">+</button>
+      <button data-num class="btn-gray">7</button>
+      <button data-num class="btn-gray">9</button>
+      <button data-num class="btn-gray">8</button>
+      <button data-operator class="btn-green">-</button>
+      <button data-num class="span-two btn-gray">0</button>
+      <button data-num class="btn-gray">.</button>
+      <button data-equals class="btn-green">=</button>
     </div>
-    <button data-all-clear class="transp-2">AC</button>
-    <button data-delete class="transp-2">DEL</button>
-    <button data-min-plus class="transp-2">-/+</button>
-    <button data-operation class="transp-3">÷</button>
-    <button data-number class="transp-1">7</button>
-    <button data-number class="transp-1">8</button>
-    <button data-number class="transp-1">9</button>
-    <button data-operation class="transp-3">x</button>
-    <button data-number class="transp-1">4</button>
-    <button data-number class="transp-1">5</button>
-    <button data-number class="transp-1">6</button>
-    <button data-operation class="transp-3">-</button>
-    <button data-number class="transp-1">1</button>
-    <button data-number class="transp-1">2</button>
-    <button data-number class="transp-1">3</button>
-    <button data-operation class="transp-3">+</button>
-    <button data-number class="span-two transp-1">0</button>
-    <button data-number class="transp-1">.</button>
-    <button data-equals class="transp-3">=</button>
   </div>
 </div>
+
+
+  <script src="./script.js"></script>
 </body>
 </html>

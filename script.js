@@ -56,11 +56,16 @@ class Calculator {
       default:
         return;
     }
+    // debugger;
     // this.prevOperandTextElement += this.currOperand;
     this.currOperand = computation;
+    // debugger;
     this.operation = undefined;
+    // debugger;
     this.prevOperand = "";
-    this.prevOperandTextElement.innerHTML = "";
+    // debugger;
+    // this.prevOperandTextElement.innerHTML = "";
+    this.prevOperandTextElement.innerText = "";
   }
 
   getDisplayNum(num) {
@@ -84,7 +89,7 @@ class Calculator {
     this.currOperandTextElement.innerText = this.getDisplayNum(
       this.currOperand
     );
-
+    // debugger;
     if (this.operation != null && this.operation != undefined) {
       this.prevOperandTextElement.innerHTML = `${this.getDisplayNum(
         this.prevOperand
@@ -92,18 +97,37 @@ class Calculator {
     }
     // this.prevOperandTextElement.innerText = this.prevOperand;
   }
-  negPosNum() {}
+  negativeNumbers() {
+    this.currOperand[0] == "-"
+      ? (this.currOperand = this.currOperand.substr(1))
+      : (this.currOperand = "-".concat(this.currOperand));
+  }
 }
+
+// Calculator DOM elements
 const btn = document.querySelectorAll("button");
 const numBtns = document.querySelectorAll("[data-num]");
 const operationBtns = document.querySelectorAll("[data-operator]");
 const equalsBtn = document.querySelector("[data-equals]");
 const allClearBtn = document.querySelector("[data-allClear]");
 const delBtn = document.querySelector("[data-delete]");
-const munPlus = document.querySelector("[data-minPlus]");
+const minPlusBtn = document.querySelector("[data-minPlus]");
 const prevOperandTextElement = document.querySelector("[data-prev-operand]");
 const currOperandTextElement = document.querySelector("[data-curr-operand]");
 
+// Currency Converter DOM elements
+const currencyExtension = document.querySelector("[data-currency-extension]");
+const converterField = document.querySelector("[data-currency-converter]");
+const currencyExtensionBtn = document.querySelector(
+  "[data-currency-extension-btn]"
+);
+const currencyBtn = document.querySelectorAll("[data-currency-btn]");
+const currencyName = document.querySelectorAll("[data-currency-name]");
+const currencyValue = document.querySelectorAll("[data-currency-value]");
+
+const cryptoExtension = document.querySelector("[data-crypto-extension]");
+
+// Calculator
 const calculator = new Calculator(
   prevOperandTextElement,
   currOperandTextElement
@@ -122,6 +146,8 @@ operationBtns.forEach((btn) => {
   });
 });
 equalsBtn.addEventListener("click", (btn) => {
+  console.log("btn:", btn.target.innerText);
+  console.log("btn value type:", typeof btn.target.innerText);
   calculator.compute();
   calculator.updDisplay();
 });
@@ -133,18 +159,15 @@ delBtn.addEventListener("click", (btn) => {
   calculator.delete();
   calculator.updDisplay();
 });
+minPlusBtn.addEventListener("click", (btn) => {
+  calculator.negativeNumbers();
+  calculator.updDisplay();
+});
 
-// document.addEventListener("keydown", (e) => {
-//   let keyVal = e.key;
-//   let btn = Array.from(document.querySelectorAll("button")).find(
-//     (el) => el.textContent.toString() === keyVal
-//   );
-//   console.log("btn:", btn.textContent);
-//   btn.classList.toggle("active");
-// });
 document.addEventListener("keypress", (e) => {
+  // if (!currencyExtension.classList.contains("extension-active-right")) {
   const nums = /[0-9.]/;
-  const operators = /[=+\*-÷]/;
+  const operators = /[+\*-÷]/;
   const division = "/";
   const del = "Backspace";
   const equals = "Enter";
@@ -153,6 +176,7 @@ document.addEventListener("keypress", (e) => {
   switch (e.key) {
     case equals:
       keyVal = "=";
+      // debugger;
       break;
     case "Backspace":
       keyVal = "DEL";
@@ -165,6 +189,7 @@ document.addEventListener("keypress", (e) => {
       break;
     default:
       keyVal = e.key;
+    // return;
   }
   console.log("keyVal:", keyVal);
   console.log("keyVal type:", typeof keyVal);
@@ -178,7 +203,7 @@ document.addEventListener("keypress", (e) => {
   switch (keyVal) {
     case String(keyVal.match(nums)):
       calculator.appendNum(keyVal);
-      // debugger;
+
       calculator.updDisplay();
       break;
     case String(keyVal.match(operators)):
@@ -189,9 +214,11 @@ document.addEventListener("keypress", (e) => {
       calculator.delete();
       calculator.updDisplay();
       break;
-    case equals:
+    case "=":
       calculator.compute();
+      debugger;
       calculator.updDisplay();
+      debugger;
       break;
     case "AC":
       calculator.clear();
@@ -200,4 +227,44 @@ document.addEventListener("keypress", (e) => {
     default:
       return;
   }
+  // }
+});
+class Converter {
+  constructor(currencies) {
+    // this.base = base;
+    this.currencies = currencies;
+  }
+
+  addCurrency(currName) {
+    this.currencyRow = `<div data-currency-name class="currency-name">${currName}</div>
+    <div data-currency-value class="currency-amount">
+      <input type="text" />${this.apiRespVal}
+    </div>`;
+    return this.currencyRow;
+    // debugger;
+    // this.currencyExtension.push(currName);
+    // console.log("currencyList:", this.currencyList);
+  }
+  // updList() {}
+}
+
+const currencies = ["AUD", "UAH", "USD", "GBP", "JPY", "INR"];
+// converter
+const converter = new Converter(currencies);
+
+currencyExtensionBtn.addEventListener("click", (e) => {
+  currencyExtension.classList.toggle("extension-active-right");
+  currencyExtension.style.transition = "all .5s ease-out";
+});
+cryptoExtension.addEventListener("click", (e) => {
+  cryptoExtension.classList.toggle("extension-active-left");
+  cryptoExtension.style.transition = "all .5s ease-out";
+});
+currencyBtn.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    let currName = e.target.textContent;
+    // converterField.innerHTML = converter.addCurrency(currName);
+    converterField.innerHTML = `<div data-currency-name class="currency-name">${currName}</div>
+                                <div data-currency-value class="currency-amount"><input type="text" /></div>`;
+  });
 });

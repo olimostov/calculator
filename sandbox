@@ -1,0 +1,67 @@
+document.addEventListener("keydown", (e) => {
+  // const nums = /[0-9.]/;
+  // const operators = /[=+*-\/]/;
+  // const del = "Backspace";
+  // const equals = "Enter";
+  let keyVal = e.key;
+  switch (keyVal) {
+    case "Enter":
+      keyVal = "=";
+      break;
+    case "Backspace":
+      keyVal = "DEL";
+      break;
+    default:
+      return;
+  }
+
+  let btn = Array.from(document.querySelectorAll("button")).find((el) => {
+    el.textContent.toString() === keyVal;
+  });
+  btn.classList.toggle("active");
+});
+document.addEventListener("keyup", (e) => {
+  const nums = /[0-9.]/;
+  const operators = /[=+*-\/]/;
+  const del = "Backspace";
+  const equals = "Enter";
+  let keyVal = e.key;
+  switch (keyVal) {
+    case "Enter":
+      keyVal = "=";
+      break;
+    case "Backspace":
+      keyVal = "DEL";
+      break;
+    default:
+      return;
+  }
+
+  let btn = Array.from(document.querySelectorAll("button")).find((el) => {
+    el.textContent.toString() === keyVal;
+  });
+  btn.classList.toggle("active");
+  debugger;
+
+  switch (keyVal) {
+    case String(keyVal.match(nums)):
+      calculator.appendNum(keyVal);
+      // debugger;
+      calculator.updDisplay();
+      break;
+    case String(keyVal.match(operators)):
+      calculator.chooseOperation(keyVal);
+      calculator.updDisplay();
+      break;
+    case del:
+      calculator.delete();
+      calculator.updDisplay();
+      break;
+    case equals:
+      calculator.compute();
+      calculator.updDisplay();
+      break;
+    default:
+      return;
+  }
+});

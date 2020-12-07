@@ -1,43 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<div class="flex-container">
-  <div class="container"></div>
-    <div class="calculator-grid">
-      <div class="output">
-        <div data-prev-operand class="prev-operand"></div>
-        <div data-curr-operand class="curr-operand"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="flex-container">
+      <div class="container">
+        <div data-crypto-extension class="extension extension-left">Ƀ</div>
+        <div class="calculator-grid">
+          <div class="output">
+            <div data-prev-operand class="prev-operand"></div>
+            <div data-curr-operand class="curr-operand"></div>
+          </div>
+          <button data-allClear class="btn-green">AC</button>
+          <button data-delete class="btn-green">DEL</button>
+          <button data-minPlus class="btn-green">-/+</button>
+          <button data-operator class="btn-green">÷</button>
+          <button data-num class="btn-gray">1</button>
+          <button data-num class="btn-gray">2</button>
+          <button data-num class="btn-gray">3</button>
+          <button data-operator class="btn-green">*</button>
+          <button data-num class="btn-gray">4</button>
+          <button data-num class="btn-gray">5</button>
+          <button data-num class="btn-gray">6</button>
+          <button data-operator class="btn-green">+</button>
+          <button data-num class="btn-gray">7</button>
+          <button data-num class="btn-gray">8</button>
+          <button data-num class="btn-gray">9</button>
+          <button data-operator class="btn-green">-</button>
+          <button data-num class="span-two btn-gray">0</button>
+          <button data-num class="btn-gray">.</button>
+          <button data-equals class="btn-green">=</button>
+        </div>
+        <div
+          data-currency-extension
+          class="extension extension-right"
+        >
+          <button data-currency-btn class="currency-btn">AUD</button>
+          <button data-currency-btn class="currency-btn">UAH</button>
+          <button data-currency-btn class="currency-btn">USD</button>
+          <button data-currency-btn class="currency-btn">GBP</button>
+          <button data-currency-btn class="currency-btn">JPY</button>
+          <button data-currency-btn class="currency-btn">INR</button>
+
+          <button data-currency-extension-btn id="extend-btn">&#65284;</button>
+          <!-- <div data-currency-converter></div> -->
+          <div data-currency-name class="currency-name"></div>
+          <div data-currency-value class="currency-amount">
+            <input type="text" />
+          </div>
+          <div data-currency-name class="currency-name"></i>
+          </div>
+          <div data-currency-value class="currency-amount">
+            <input type="text" />
+          </div>
+          <div data-currency-name class="currency-name"></div>
+          <div data-currency-value class="currency-amount">
+            <input type="text" />
+          </div>
+          <div data-currency-name class="currency-name"></div>
+          <div data-currency-value class="currency-amount">
+            <input type="text" />
+          </div>
+          <div data-currency-name class="currency-name">
+          </div>
+          <div data-currency-value class="currency-amount">
+            <input type="text" />
+          </div>
+          <div data-currency-name class="currency-name"></div>
+          <div data-currency-value class="currency-amount">
+            <input type="text" />
+          </div>
+        </div>
       </div>
-      <button data-allClear class="btn-green">AC</button>
-      <button data-delete class="btn-green">DEL</button>
-      <button data-minPlus class="btn-green">-/+</button>
-      <button data-operator>÷</button>
-      <button data-num class="btn-gray">1</button>
-      <button data-num class="btn-gray">2</button>
-      <button data-num class="btn-gray">3</button>
-      <button data-operator class="btn-green">*</button>
-      <button data-num class="btn-gray">4</button>
-      <button data-num class="btn-gray">5</button>
-      <button data-num class="btn-gray">6</button>
-      <button data-operator class="btn-green">+</button>
-      <button data-num class="btn-gray">7</button>
-      <button data-num class="btn-gray">9</button>
-      <button data-num class="btn-gray">8</button>
-      <button data-operator class="btn-green">-</button>
-      <button data-num class="span-two btn-gray">0</button>
-      <button data-num class="btn-gray">.</button>
-      <button data-equals class="btn-green">=</button>
     </div>
-  </div>
-</div>
 
-
-  <script src="./script.js"></script>
-</body>
+    <script src="./script.js"></script>
+  </body>
 </html>

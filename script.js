@@ -1,3 +1,26 @@
+// Calculator DOM elements
+const btn = document.querySelectorAll("button");
+const numBtns = document.querySelectorAll("[data-num]");
+const operationBtns = document.querySelectorAll("[data-operator]");
+const equalsBtn = document.querySelector("[data-equals]");
+const allClearBtn = document.querySelector("[data-allClear]");
+const delBtn = document.querySelector("[data-delete]");
+const minPlusBtn = document.querySelector("[data-minPlus]");
+const prevOperandTextElement = document.querySelector("[data-prev-operand]");
+const currOperandTextElement = document.querySelector("[data-curr-operand]");
+
+// Currency Converter DOM elements
+const currencyExtension = document.querySelector("[data-currency-extension]");
+const converterField = document.querySelector("[data-currency-converter]");
+const currencyExtensionBtn = document.querySelector(
+  "[data-currency-extension-btn]"
+);
+const currencyBtn = document.querySelectorAll("[data-currency-btn]");
+const currencyName = document.querySelectorAll("[data-currency-name]");
+const currencyValue = document.querySelectorAll("[data-currency-value]");
+
+const cryptoExtension = document.querySelector("[data-crypto-extension]");
+
 class Calculator {
   constructor(prevOperandTextElement, currOperandTextElement) {
     this.prevOperandTextElement = prevOperandTextElement;
@@ -8,6 +31,7 @@ class Calculator {
     this.currOperand = "";
     this.prevOperand = "";
     this.operation = undefined;
+    this.computation = undefined;
     this.prevOperandTextElement.innerHTML = "";
   }
 
@@ -34,7 +58,6 @@ class Calculator {
     this.currOperand = "";
   }
   compute() {
-    let computation;
     const prev = parseFloat(this.prevOperand);
     const curr = parseFloat(this.currOperand);
     if (isNaN(prev) || isNaN(curr)) {
@@ -42,28 +65,28 @@ class Calculator {
     }
     switch (this.operation) {
       case "+":
-        computation = prev + curr;
+        this.computation = prev + curr;
         break;
       case "-":
-        computation = prev - curr;
+        this.computation = prev - curr;
         break;
       case "*":
-        computation = prev * curr;
+        this.computation = prev * curr;
         break;
       case "÷" || "/":
-        computation = prev / curr;
+        this.computation = prev / curr;
         break;
       default:
         return;
     }
-    // debugger;
+    //
     // this.prevOperandTextElement += this.currOperand;
-    this.currOperand = computation;
-    // debugger;
+    this.currOperand = this.computation;
     this.operation = undefined;
     // debugger;
+
     this.prevOperand = "";
-    // debugger;
+
     // this.prevOperandTextElement.innerHTML = "";
     this.prevOperandTextElement.innerText = "";
   }
@@ -89,7 +112,7 @@ class Calculator {
     this.currOperandTextElement.innerText = this.getDisplayNum(
       this.currOperand
     );
-    // debugger;
+
     if (this.operation != null && this.operation != undefined) {
       this.prevOperandTextElement.innerHTML = `${this.getDisplayNum(
         this.prevOperand
@@ -104,29 +127,6 @@ class Calculator {
   }
 }
 
-// Calculator DOM elements
-const btn = document.querySelectorAll("button");
-const numBtns = document.querySelectorAll("[data-num]");
-const operationBtns = document.querySelectorAll("[data-operator]");
-const equalsBtn = document.querySelector("[data-equals]");
-const allClearBtn = document.querySelector("[data-allClear]");
-const delBtn = document.querySelector("[data-delete]");
-const minPlusBtn = document.querySelector("[data-minPlus]");
-const prevOperandTextElement = document.querySelector("[data-prev-operand]");
-const currOperandTextElement = document.querySelector("[data-curr-operand]");
-
-// Currency Converter DOM elements
-const currencyExtension = document.querySelector("[data-currency-extension]");
-const converterField = document.querySelector("[data-currency-converter]");
-const currencyExtensionBtn = document.querySelector(
-  "[data-currency-extension-btn]"
-);
-const currencyBtn = document.querySelectorAll("[data-currency-btn]");
-const currencyName = document.querySelectorAll("[data-currency-name]");
-const currencyValue = document.querySelectorAll("[data-currency-value]");
-
-const cryptoExtension = document.querySelector("[data-crypto-extension]");
-
 // Calculator
 const calculator = new Calculator(
   prevOperandTextElement,
@@ -135,19 +135,33 @@ const calculator = new Calculator(
 
 numBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
-    calculator.appendNum(btn.innerText);
-    calculator.updDisplay();
+    if (calculator.computation && calculator.operation == undefined) {
+      calculator.clear();
+      calculator.appendNum(btn.innerText);
+      calculator.updDisplay();
+    } else {
+      calculator.appendNum(btn.innerText);
+      calculator.updDisplay();
+    }
   });
 });
+
 operationBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
+    if (calculator.operation != undefined) {
+      calculator.operation = btn.innerText;
+    }
     calculator.chooseOperation(btn.innerText);
     calculator.updDisplay();
   });
 });
+
 equalsBtn.addEventListener("click", (btn) => {
   console.log("btn:", btn.target.innerText);
   console.log("btn value type:", typeof btn.target.innerText);
+  console.log(`current num: ${this.currOperand}`);
+  console.log(`prev num: ${this.prevOperand}`);
+  console.log(`current operation: ${this.operation}`);
   calculator.compute();
   calculator.updDisplay();
 });
@@ -165,20 +179,19 @@ minPlusBtn.addEventListener("click", (btn) => {
 });
 
 document.addEventListener("keypress", (e) => {
-  // if (!currencyExtension.classList.contains("extension-active-right")) {
-  const nums = /[0-9.]/;
-  const operators = /[+\*-÷]/;
+  const nums = /[\d\.]/;
+  const operators = /[*÷+-]/;
   const division = "/";
-  const del = "Backspace";
-  const equals = "Enter";
+  const del = "Delete";
+  const equals = /Enter|=/;
   const allClear = "c";
-  let keyVal;
+  let keyVal = e.key;
+
   switch (e.key) {
-    case equals:
+    case String(e.key.match(equals)):
       keyVal = "=";
-      // debugger;
       break;
-    case "Backspace":
+    case del:
       keyVal = "DEL";
       break;
     case allClear:
@@ -189,7 +202,6 @@ document.addEventListener("keypress", (e) => {
       break;
     default:
       keyVal = e.key;
-    // return;
   }
   console.log("keyVal:", keyVal);
   console.log("keyVal type:", typeof keyVal);
@@ -200,34 +212,41 @@ document.addEventListener("keypress", (e) => {
   setTimeout(() => {
     btn.classList.toggle("active");
   }, 100);
+
   switch (keyVal) {
     case String(keyVal.match(nums)):
-      calculator.appendNum(keyVal);
-
-      calculator.updDisplay();
+      if (calculator.computation && calculator.operation == undefined) {
+        calculator.clear();
+        calculator.appendNum(keyVal);
+        calculator.updDisplay();
+      } else {
+        calculator.appendNum(keyVal);
+        calculator.updDisplay();
+      }
       break;
     case String(keyVal.match(operators)):
-      calculator.chooseOperation(keyVal);
-      calculator.updDisplay();
-      break;
-    case String(del):
-      calculator.delete();
+      if (calculator.operation != undefined) {
+        calculator.operation = btn.innerText;
+      }
+
+      calculator.chooseOperation(btn.innerText);
       calculator.updDisplay();
       break;
     case "=":
       calculator.compute();
-      debugger;
       calculator.updDisplay();
-      debugger;
+      break;
+    case "DEL":
+      calculator.delete();
+      calculator.updDisplay();
       break;
     case "AC":
       calculator.clear();
       calculator.updDisplay();
       break;
     default:
-      return;
+      keyVal;
   }
-  // }
 });
 class Converter {
   constructor(currencies) {
@@ -241,7 +260,7 @@ class Converter {
       <input type="text" />${this.apiRespVal}
     </div>`;
     return this.currencyRow;
-    // debugger;
+    //
     // this.currencyExtension.push(currName);
     // console.log("currencyList:", this.currencyList);
   }

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato&family=Roboto:wght@100;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto:wght@100;400;800&display=swap');
 :root {
   --primary-color: #65ffe5;
   --secondary-color: #016464;
@@ -9,12 +9,12 @@
 * {
   box-sizing: border-box;
   color: #fff;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 100;
 }
 body {
   /* background: #65ffe5;*/
-  background: url("./img/pattern.svg");
+  background: url('./img/pattern.svg');
   padding: 0;
   margin: 0;
 }
@@ -24,20 +24,23 @@ button {
   cursor: pointer;
 }
 input {
-  color: -internal-light-dark(black, white);
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  display: inline-block;
-  text-align: end;
+  /* width: 100px; */
+  /* display: inline; */
+  text-align: center;
   background: var(--dark-gray);
   cursor: text;
-  padding: 5px 3px;
+  padding: 2px 5px;
   border: none;
   outline: none;
-  width: 100%;
+  height: 25px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+  display: inline;
 }
 .flex-container {
   display: flex;
@@ -136,7 +139,7 @@ button.active {
 .extension {
   display: grid;
   grid-template-columns: repeat(6, 40px) 20px;
-  grid-template-rows: 40px repeat(6, auto);
+  grid-template-rows: 40px;
   align-items: stretch;
   /* justify-content: center; */
   height: 450px;
@@ -146,11 +149,12 @@ button.active {
 }
 #extend-btn {
   display: grid;
-  grid-area: 1 /7/ 8/8;
+  grid-area: 1 /7;
   align-self: stretch;
   align-content: center;
   border: none;
   background: #333;
+  height: 450px;
 }
 .currency-btn {
   background: #333;
@@ -158,16 +162,30 @@ button.active {
   cursor: pointer;
   margin-right: 1px;
 }
-.currency-name {
+#curr-converter {
   grid-column: 1 / span 3;
-  margin-bottom: 1px;
-  /* background: #555; */
-  width: 100%;
-  height: 100%;
-  border-bottom: 1px dotted #555;
+}
+.currency-converter {
+}
+li.currency-name {
+  height: 40px;
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--dark-gray);
+}
+.currency-name label {
+  align-self: flex-end;
 }
 .currency-amount {
-  grid-column: 4 / span 3;
+  /* display: inline; */
+  /* width: 50%; */
+}
+input.currency-amount {
+  margin-left: 15px;
 }
 .extension-right {
   position: relative;
@@ -176,11 +194,11 @@ button.active {
 .extension-active-right {
   left: -240px;
 }
-.currency-name,
+/* .currency-name,
 .currency-amount {
   align-self: center;
   justify-self: center;
-}
+} */
 
 .extension-left {
   position: relative;

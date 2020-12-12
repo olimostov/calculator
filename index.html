@@ -19,7 +19,12 @@
         <div class="calculator-grid">
           <div class="output">
             <div data-prev-operand class="prev-operand"></div>
-            <div data-curr-operand class="curr-operand" contentEditable="true" data-text="0"></div>
+            <div
+              data-curr-operand
+              class="curr-operand"
+              contenteditable="true"
+              data-text="0"
+            ></div>
           </div>
           <button data-allClear class="btn-green">AC</button>
           <button data-delete class="btn-green">DEL</button>
@@ -41,10 +46,7 @@
           <button data-num class="btn-gray">.</button>
           <button data-equals class="btn-green">=</button>
         </div>
-        <div
-          data-currency-extension
-          class="extension extension-right"
-        >
+        <div data-currency-extension class="extension extension-right extension-active-right">
           <button data-currency-btn class="currency-btn">AUD</button>
           <button data-currency-btn class="currency-btn">UAH</button>
           <button data-currency-btn class="currency-btn">USD</button>
@@ -53,33 +55,21 @@
           <button data-currency-btn class="currency-btn">INR</button>
 
           <button data-currency-extension-btn id="extend-btn">&#65284;</button>
-          <!-- <div data-currency-converter></div> -->
-          <div data-currency-name class="currency-name"></div>
-          <div data-currency-value class="currency-amount">
-            <input type="text" />
-          </div>
-          <div data-currency-name class="currency-name"></i>
-          </div>
-          <div data-currency-value class="currency-amount">
-            <input type="text" />
-          </div>
-          <div data-currency-name class="currency-name"></div>
-          <div data-currency-value class="currency-amount">
-            <input type="text" />
-          </div>
-          <div data-currency-name class="currency-name"></div>
-          <div data-currency-value class="currency-amount">
-            <input type="text" />
-          </div>
-          <div data-currency-name class="currency-name">
-          </div>
-          <div data-currency-value class="currency-amount">
-            <input type="text" />
-          </div>
-          <div data-currency-name class="currency-name"></div>
-          <div data-currency-value class="currency-amount">
-            <input type="text" />
-          </div>
+          <!-- <ul data-currency-converter id="curr-converter">
+             <li data-currency-name class="currency-name"><label for="">UAH </label><i class="fas fa-hryvnia"></i>
+               <input type="text" data-currency-value class="currency-amount" />
+              </li> -->
+               <!--<li data-currency-name class="currency-name">UAH
+            </li>
+            <input type="text" data-currency-value class="currency-amount" />
+            <li data-currency-name class="currency-name">USD
+            </li>
+            <input type="text" data-currency-value class="currency-amount" />
+            <li data-currency-name class="currency-name">GBP
+            </li>
+            <input type="text" data-currency-value class="currency-amount" /> -->
+          <!-- </ul> -->
+        </div>
         </div>
       </div>
     </div>

@@ -43,7 +43,6 @@ class Calculator {
     if (this.prevOperand !== '') {
       this.compute();
     }
-    // this.dispOperator = `<span class="operator"> ${operation} </span>`;
 
     this.operation = operation;
     this.prevOperand = this.currOperand;
@@ -335,24 +334,33 @@ const currencies = [
 ];
 
 class Converter {
-  constructor(currencies) {
+  constructor(currencies, converterType) {
     // this.base = base;
     this.currencies = currencies;
+    this.converterExtension = converterType;
   }
 
-  // addCurrency(currName) {
-  //   this.currList = document.createElement('ul');
-  //   this.currList.id = 'curr-converter';
-  //   this.currList.setAttribute('data-currency-converter', '');
-  //   this.currRow = `<li data-currency-name class="currency-name">${currName}</li><input type="text" data-currency-value class="currency-amount" />`;
-  //   this.currList.innerHTML = this.currRow;
-  // }
+  createNode(currency) {
+    const currencyObj = this.currencies.filter((obj) => {
+      return obj.name === currency;
+    });
+    const li = document.createElement(`li`);
+    const label = document.createElement('label');
+    const icon = document.createElement('i');
+    const input = document.createElement('input');
+    const attrTags = [input, icon, label, li];
+    attrTags.forEach((el) => {
+      this.setAttributes(el, currencyObj);
+      console.log('createNode func: ', el);
+      console.log('createNode func nodeType: ', el.nodeType);
+    });
 
+    return this.appendElements(attrTags);
+  }
   setAttributes(element, attrObj) {
     // console.log(attrObj);
     switch (element.outerHTML) {
       case '<li></li>':
-        // debugger;
         element.setAttribute('class', attrObj[0].li.className);
         element.setAttribute(`${attrObj[0].li.dataAttribute}`, '');
 
@@ -373,50 +381,42 @@ class Converter {
     }
     console.log('setAttribute func: ', element);
     console.log('setAttribute func (type): ', element.nodeType);
+    // debugger;
   }
+
   appendElements(tags) {
-    let counter = tags.length - 1;
-    console.log('tags.length: ', tags.length);
+    let tagsArray = tags;
+    let liIdx = tagsArray.length - 1;
+    let counter = liIdx - 1;
+    console.log('tagsArray: ', tagsArray);
+    console.log('tagsArray.length: ', tagsArray.length);
+    // tagsArray.forEach((e) => {
+    //   console.log(e.index, e);
+    // });
+    console.log('liIdx: ', liIdx);
     console.log('counter: ', counter);
-    console.log('type : ', typeof tags[counter - 1]);
-    if (counter <= 0) {
-      console.log(tags);
-      return;
+    console.log('type : ', typeof tagsArray[liIdx]);
+    if (liIdx <= 0) {
+      console.log('Node: ', tagsArray[0]);
+      console.log('nodeType: ', tagsArray[0].nodeType);
+
+      this.currencyToConvert = tagsArray[0];
+      // this.converterExtension.appendChild(tagsArray[0]);
+      return this.currencyToConvert;
     }
-    tags[counter - 1].appendChild(tags[counter]);
-    console.log('tags[counter - 1]: ', tags[counter - 1]);
-    console.log('tags.length: ', tags.length);
-    tags.pop();
-    this.appendElements(tags);
-  }
+    console.log('tag to remove: ', tagsArray[counter]);
+    tagsArray[liIdx].appendChild(tagsArray[counter]);
+    console.log('tag to remove: ', tagsArray[counter]);
+    console.log('li tag: ', tagsArray[liIdx]);
+    console.log('tags.length: ', tagsArray.length);
+    let removed = tagsArray.splice(-2, 1);
+    console.log('removed:', removed);
 
-  createNode(currency) {
-    const currencyObj = this.currencies.filter((obj) => {
-      return obj.name === currency;
-    });
-    const li = document.createElement(`li`);
-    const label = document.createElement('label');
-    const icon = document.createElement('i');
-    const input = document.createElement('input');
-    const attrTags = [li, label, icon, input];
-    attrTags.forEach((el) => {
-      this.setAttributes(el, currencyObj);
-      console.log('createNode func: ', el);
-      console.log('createNode func nodeType: ', el.nodeType);
-      // console.log(el);
-    });
-    this.HTMLNode = this.appendElements(attrTags);
-    console.log('HTMLNode:', this.HTMLNode);
-
-    // this.HTMLNode.innerHTML = `class="${currencyObj[0].className[0]}" ${currencyObj[0].dataAttribute[0]} ><label for="${currency}">${currency} </label>${currencyObj[0].icon}<input type="text" ${currencyObj[0].dataAttribute[1]} class="${currencyObj[0].className[1]}" />`;
-    // return this.HTMLNode;
+    this.appendElements(tagsArray);
   }
 }
-
-// const currencies = ['AUD', 'UAH', 'USD', 'GBP', 'JPY', 'INR'];
-
 // converter
-const converter = new Converter(currencies);
+const converter = new Converter(currencies, currencyList);
 
 currencyExtensionBtn.addEventListener('click', (e) => {
   currencyExtension.classList.toggle('extension-active-right');
@@ -428,13 +428,26 @@ cryptoExtension.addEventListener('click', (e) => {
 });
 currencyBtn.forEach((btn) => {
   btn.addEventListener('click', (e) => {
-    console.log(e.target.innerText);
-    console.log(typeof e.target.innerText);
-    // console.log(converter.createNode(e.target.innerText));
-    let HTMLNode = converter.createNode(e.target.innerText);
-    console.log('HTMLNode:', HTMLNode);
-    console.log('currencyList:', currencyList);
-    currencyList.appendChild(HTMLNode);
+    // debugger;
+    const currenciesPresent = document.querySelectorAll('[data-currency-name]');
+    let exists = Array.from(currenciesPresent).filter((i) => {
+      return i.innerText === e.target.innerText;
+    });
+    console.log('exists:', exists);
+    if (currenciesPresent.length === 0 || exists.length === 0) {
+      converter.createNode(e.target.innerText);
+      e.target.classList.toggle('added');
+      console.log('converter.currencyToConvert: ', converter.currencyToConvert);
+      currencyList.appendChild(converter.currencyToConvert);
+    } else {
+      let i = Array.from(currenciesPresent).findIndex((c) => c === exists[0]);
+      // let i = currenciesPresent.findIndex((c) => c === exists[0]);
+      console.log('i:', i);
+      currenciesPresent[i].remove();
+      e.target.classList.toggle('added');
+      currenciesPresent[i].classList.toggle('added');
+      console.log('converter.currencyToConvert: ', converter.currencyToConvert);
+    }
 
     // debugger;
   });

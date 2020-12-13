@@ -163,16 +163,15 @@ button.active {
   margin-right: 1px;
 }
 #curr-converter {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 6;
 }
-.currency-converter {
-}
+
 li.currency-name {
   height: 40px;
   display: flex;
   /* flex-direction: row; */
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   font-weight: 400;
   padding: 10px 0;
   border-bottom: 1px solid var(--dark-gray);
@@ -180,9 +179,11 @@ li.currency-name {
 .currency-name label {
   align-self: flex-end;
 }
-.currency-amount {
-  /* display: inline; */
-  /* width: 50%; */
+li.currency-name i {
+  color: var(--secondary-color);
+}
+button.currency-btn.added {
+  font-weight: 800;
 }
 input.currency-amount {
   margin-left: 15px;

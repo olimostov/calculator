@@ -9,9 +9,6 @@ const minPlusBtn = document.querySelector('[data-minPlus]');
 const prevOperandTextElement = document.querySelector('[data-prev-operand]');
 const currOperandTextElement = document.querySelector('[data-curr-operand]');
 
-// Crypto Converter DOM elements
-const cryptoExtension = document.querySelector('[data-crypto-extension]');
-
 // Classes
 class Calculator {
   constructor(prevOperandTextElement, currOperandTextElement) {
@@ -187,8 +184,6 @@ document.addEventListener('keydown', (e) => {
     default:
       keyVal = e.key;
   }
-  console.log('keyVal:', keyVal);
-  console.log('keyVal type:', typeof keyVal);
   let btn = Array.from(document.querySelectorAll('button')).find(
     (el) => el.textContent.toString() === keyVal
   );
@@ -235,8 +230,11 @@ document.addEventListener('keydown', (e) => {
 
 // Currency Converter DOM elements
 const currencyExtension = document.querySelector('[data-currency-extension]');
+const cryptoCurrencyExtension = document.querySelector(
+  '[data-crypto-currency-extension]'
+);
 const converterField = document.querySelector('[data-currency-converter]');
-const currencyExtensionBtn = document.querySelector(
+const currencyExtensionBtn = document.querySelectorAll(
   '[data-currency-extension-btn]'
 );
 const currencyBtn = document.querySelectorAll('[data-currency-btn]');
@@ -246,6 +244,8 @@ const currencyList = document.createElement('ul');
 currencyList.id = 'curr-converter';
 currencyList.setAttribute('data-currency-converter', '');
 currencyExtension.appendChild(currencyList);
+let converterInputs;
+
 const currencies = [
   {
     name: 'AUD',
@@ -418,14 +418,27 @@ class Converter {
 // converter
 const converter = new Converter(currencies, currencyList);
 
-currencyExtensionBtn.addEventListener('click', (e) => {
-  currencyExtension.classList.toggle('extension-active-right');
-  currencyExtension.style.transition = 'all .5s ease-out';
+currencyExtensionBtn.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    console.log('target:', e.target);
+    // debugger;
+    if (
+      e.target.className === 'extend-btn-left' ||
+      e.target.className === 'fab fa-btc'
+    ) {
+      cryptoCurrencyExtension.classList.toggle('extension-active-left');
+      cryptoCurrencyExtension.style.transition = 'all .5s ease-out';
+    } else if (
+      e.target.className === 'extend-btn-right' ||
+      e.target.className === 'fas fa-dollar-sign'
+    ) {
+      currencyExtension.classList.toggle('extension-active-right');
+      currencyExtension.style.transition = 'all .5s ease-out';
+    }
+    // currencyExtension.classList.toggle('extension-active-right');
+  });
 });
-cryptoExtension.addEventListener('click', (e) => {
-  cryptoExtension.classList.toggle('extension-active-left');
-  cryptoExtension.style.transition = 'all .5s ease-out';
-});
+
 currencyBtn.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     // debugger;
@@ -449,6 +462,14 @@ currencyBtn.forEach((btn) => {
       console.log('converter.currencyToConvert: ', converter.currencyToConvert);
     }
 
-    // debugger;
+    converterInputs = document.querySelectorAll('[data-currency-value]');
   });
 });
+
+// // Crypto Converter DOM elements
+// const cryptoExtension = document.querySelector('[data-crypto-extension]');
+
+// cryptoExtension.addEventListener('click', (e) => {
+//   cryptoExtension.classList.toggle('extension-active-right');
+//   cryptoExtension.style.transition = 'all .5s ease-out';
+// });

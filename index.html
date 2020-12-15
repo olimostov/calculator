@@ -15,9 +15,19 @@
   <body>
     <div class="flex-container">
       <div class="container">
-        <div data-crypto-extension class="extension extension-left">Ƀ</div>
+        <div data-crypto-currency-extension class="extension extension-left">
+          <!-- extension-active-left -->
+          <button data-currency-extension-btn class="extend-btn-left"><i class="fab fa-btc"></i></button>
+          <button data-currency-btn class="currency-btn">BTC</button>
+          <button data-currency-btn class="currency-btn">ETH</button>
+          <button data-currency-btn class="currency-btn">EOS</button>
+          <button data-currency-btn class="currency-btn">XRP</button>
+          <button data-currency-btn class="currency-btn">LTC</button>
+          <button data-currency-btn class="currency-btn">BNB</button>
+          <!-- <ul id="curr-converter" data-currency-converter=""></ul> -->
+        </div>
         <div class="calculator-grid">
-          <div class="output">
+          <div class="output" onclick="focusMethod()">
             <div data-prev-operand class="prev-operand"></div>
             <div
               data-curr-operand
@@ -47,6 +57,7 @@
           <button data-equals class="btn-green">=</button>
         </div>
         <div data-currency-extension class="extension extension-right">
+          <!-- extension-active-right -->
           <button data-currency-btn class="currency-btn">AUD</button>
           <button data-currency-btn class="currency-btn">UAH</button>
           <button data-currency-btn class="currency-btn">USD</button>
@@ -54,21 +65,7 @@
           <button data-currency-btn class="currency-btn">JPY</button>
           <button data-currency-btn class="currency-btn">INR</button>
 
-          <button data-currency-extension-btn id="extend-btn">&#65284;</button>
-          <!-- <ul data-currency-converter id="curr-converter">
-             <li data-currency-name class="currency-name"><label for="">UAH </label><i class="fas fa-hryvnia"></i>
-               <input type="text" data-currency-value class="currency-amount" />
-              </li> -->
-               <!--<li data-currency-name class="currency-name">UAH
-            </li>
-            <input type="text" data-currency-value class="currency-amount" />
-            <li data-currency-name class="currency-name">USD
-            </li>
-            <input type="text" data-currency-value class="currency-amount" />
-            <li data-currency-name class="currency-name">GBP
-            </li>
-            <input type="text" data-currency-value class="currency-amount" /> -->
-          <!-- </ul> -->
+          <button data-currency-extension-btn class="extend-btn-right"><i class="fas fa-dollar-sign"></i></button>
         </div>
         </div>
       </div>

@@ -137,17 +137,26 @@ button.active {
   color: #65ffe5;
 }
 .extension {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(6, 40px) 20px;
   grid-template-rows: 40px;
   align-items: stretch;
-  /* justify-content: center; */
+  justify-content: center;
   height: 450px;
   min-width: 260px;
   background: #222;
-  box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3);
+  box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3); */
 }
-#extend-btn {
+.extend-btn-left {
+  display: grid;
+  align-self: stretch;
+  align-content: center;
+  border: none;
+  background: #333;
+  height: 450px;
+  margin-right: 1px;
+}
+.extend-btn-right {
   display: grid;
   grid-area: 1 /7;
   align-self: stretch;
@@ -189,6 +198,14 @@ input.currency-amount {
   margin-left: 15px;
 }
 .extension-right {
+  display: grid;
+  grid-template-columns: repeat(6, 40px) 20px;
+  grid-template-rows: 40px;
+  align-items: stretch;
+  height: 450px;
+  min-width: 260px;
+  background: #222;
+  box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3);
   position: relative;
   left: -480px;
 }
@@ -202,8 +219,16 @@ input.currency-amount {
 } */
 
 .extension-left {
+  display: grid;
+  grid-template-columns: 20px repeat(6, 40px);
+  grid-template-rows: 40px;
+  align-items: stretch;
+  height: 450px;
+  min-width: 260px;
+  background: #222;
+  box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3);
   position: relative;
-  /* left: 240px; */
+  left: 0;
 }
 .extension-active-left {
   left: -240px;

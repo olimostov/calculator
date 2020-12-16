@@ -171,7 +171,7 @@ button.active {
   cursor: pointer;
   margin-right: 1px;
 }
-#curr-converter {
+.curr-converter {
   grid-column: 1 / span 6;
 }
 
@@ -232,4 +232,7 @@ input.currency-amount {
 }
 .extension-active-left {
   left: -240px;
+}
+.crypto-currency-converter {
+  grid-column: 2 / span 6;
 }

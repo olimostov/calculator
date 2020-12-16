@@ -241,9 +241,13 @@ const currencyBtn = document.querySelectorAll('[data-currency-btn]');
 const currencyName = document.querySelectorAll('[data-currency-name]');
 const currencyValue = document.querySelectorAll('[data-currency-value]');
 const currencyList = document.createElement('ul');
-currencyList.id = 'curr-converter';
+currencyList.className = 'curr-converter';
 currencyList.setAttribute('data-currency-converter', '');
 currencyExtension.appendChild(currencyList);
+const cryptoList = document.createElement('ul');
+cryptoList.className = 'crypto-currency-converter';
+cryptoList.setAttribute('data-currency-converter', '');
+cryptoCurrencyExtension.appendChild(cryptoList);
 let converterInputs;
 
 const currencies = [
@@ -331,8 +335,91 @@ const currencies = [
       dataAttribute: 'data-currency-value',
     },
   },
+  {
+    name: 'BTC',
+    icon: {
+      className: 'fab fa-bitcoin"',
+    },
+    li: {
+      className: 'currency-name',
+      dataAttribute: 'data-currency-name',
+    },
+    input: {
+      className: 'currency-amount',
+      dataAttribute: 'data-currency-value',
+    },
+  },
+  {
+    name: 'ETH',
+    icon: {
+      className: 'fab fa-ethereum',
+    },
+    li: {
+      className: 'currency-name',
+      dataAttribute: 'data-currency-name',
+    },
+    input: {
+      className: 'currency-amount',
+      dataAttribute: 'data-currency-value',
+    },
+  },
+  {
+    name: 'EOS',
+    icon: {
+      className: 'fab fa-btc"',
+    },
+    li: {
+      className: 'currency-name',
+      dataAttribute: 'data-currency-name',
+    },
+    input: {
+      className: 'currency-amount',
+      dataAttribute: 'data-currency-value',
+    },
+  },
+  {
+    name: 'XRP',
+    icon: {
+      className: 'fab fa-btc"',
+    },
+    li: {
+      className: 'currency-name',
+      dataAttribute: 'data-currency-name',
+    },
+    input: {
+      className: 'currency-amount',
+      dataAttribute: 'data-currency-value',
+    },
+  },
+  {
+    name: 'LTC',
+    icon: {
+      className: 'fab fa-btc"',
+    },
+    li: {
+      className: 'currency-name',
+      dataAttribute: 'data-currency-name',
+    },
+    input: {
+      className: 'currency-amount',
+      dataAttribute: 'data-currency-value',
+    },
+  },
+  {
+    name: 'BNB',
+    icon: {
+      className: 'fab fa-btc"',
+    },
+    li: {
+      className: 'currency-name',
+      dataAttribute: 'data-currency-name',
+    },
+    input: {
+      className: 'currency-amount',
+      dataAttribute: 'data-currency-value',
+    },
+  },
 ];
-
 class Converter {
   constructor(currencies, converterType) {
     // this.base = base;
@@ -417,6 +504,8 @@ class Converter {
 }
 // converter
 const converter = new Converter(currencies, currencyList);
+const cryptoConverter = new Converter(currencies, cryptoList);
+// const converter = new Converter(currencies, currencyList);
 
 currencyExtensionBtn.forEach((btn) => {
   btn.addEventListener('click', (e) => {
@@ -442,7 +531,9 @@ currencyExtensionBtn.forEach((btn) => {
 currencyBtn.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     // debugger;
+    console.log(e.target.parentElement.classList);
     const currenciesPresent = document.querySelectorAll('[data-currency-name]');
+    let btnParentClassList = Array.from(e.target.parentElement.classList);
     let exists = Array.from(currenciesPresent).filter((i) => {
       return i.innerText === e.target.innerText;
     });
@@ -451,7 +542,11 @@ currencyBtn.forEach((btn) => {
       converter.createNode(e.target.innerText);
       e.target.classList.toggle('added');
       console.log('converter.currencyToConvert: ', converter.currencyToConvert);
-      currencyList.appendChild(converter.currencyToConvert);
+      if (btnParentClassList.includes('extension-left')) {
+        cryptoList.appendChild(converter.currencyToConvert);
+      } else {
+        currencyList.appendChild(converter.currencyToConvert);
+      }
     } else {
       let i = Array.from(currenciesPresent).findIndex((c) => c === exists[0]);
       // let i = currenciesPresent.findIndex((c) => c === exists[0]);
